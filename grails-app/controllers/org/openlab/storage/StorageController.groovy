@@ -31,10 +31,10 @@ package org.openlab.storage
 
 import grails.converters.*
 import groovy.xml.MarkupBuilder;
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.openlab.main.Project
 
 class StorageController {
+
+    def grailsApplication
 
 	def index = { redirect(action: list) }
 
@@ -174,7 +174,7 @@ class StorageController {
 	
 	def exportHierarchy = {
 		
-		response.contentType = ConfigurationHolder.config.grails.mime.types["excel"]
+		response.contentType = grailsApplication.config.grails.mime.types["excel"]
 		response.setHeader("Content-disposition", "attachment; filename=Storage.xls")
 		
 		storageExportService.export(response)

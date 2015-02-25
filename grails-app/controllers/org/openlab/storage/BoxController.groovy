@@ -29,7 +29,6 @@
  */
 package org.openlab.storage
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.openlab.main.*
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -42,6 +41,9 @@ import org.springframework.dao.DataIntegrityViolationException;
  *
  */
 class BoxController {
+
+    def grailsApplication
+    def boxExportService
 
     def scaffold = Box
 
@@ -155,13 +157,10 @@ class BoxController {
     {
     		render g.updateBoxTable(id: params.boxId, addToCell: true)
     }
-	
-	def boxCreationService
-	def boxExportService
-	
+
 	def export = {
 		
-		response.contentType = ConfigurationHolder.config.grails.mime.types["excel"]
+		response.contentType = grailsApplication.config.grails.mime.types["excel"]
 		response.setHeader("Content-disposition", "attachment; filename=${Box.get(params.id).toString().replace(' - ','\\_')}.xls")
 		
 		boxExportService.export(params.id, response)		

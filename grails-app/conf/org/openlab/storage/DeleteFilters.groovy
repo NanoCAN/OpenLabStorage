@@ -33,6 +33,7 @@ import org.openlab.main.DataObject
 import org.openlab.main.SubDataObject
 
 class DeleteFilters {
+    def grailsApplication
 
     def filters = {
         storageCheckDelete(controller:'*', action:'delete') {
